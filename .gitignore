@@ -1,0 +1,19 @@
+# Node
+node_modules/
+package-lock.json
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Hardhat
+cache/
+artifacts/
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
