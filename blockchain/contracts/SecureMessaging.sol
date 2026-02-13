@@ -27,6 +27,11 @@ contract SecureMessaging {
         emit UserRegistered(msg.sender);
     }
 
+    function getMessageHash(uint256 index) public view returns (string memory) {
+        require(index < logs.length, "Invalid index");
+        return logs[index].hash;
+    }
+
     function logMessage(address _receiver, string memory _hash) public {
         require(users[msg.sender].exists, "Sender not registered");
         require(users[_receiver].exists, "Receiver not registered");
