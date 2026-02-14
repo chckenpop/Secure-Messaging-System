@@ -124,3 +124,6 @@ def get_message_count():
     
     return contract.functions.getMessageCount().call()
 
+def get_message_hash(index):
+    return contract.functions.getMessageHash(index).call()
+

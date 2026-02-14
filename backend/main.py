@@ -5,8 +5,20 @@ from blockchain import get_message_count
 from blockchain import create_eth_account, register_user_on_chain, log_message_on_chain
 from models.message_models import SendMessageRequest, ReceiveMessageRequest
 import uuid
+from blockchain import get_message_hash
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Temporary in-memory user store (for demo)
 users = {}
@@ -104,4 +116,13 @@ def receive_message(request: ReceiveMessageRequest):
     return {
         "decrypted_message": decrypted,
         "integrity_verified": True
+    }
+
+
+
+@app.get("/verify-on-chain/{index}")
+def verify_on_chain(index: int):
+    on_chain_hash = get_message_hash(index)
+    return {
+        "on_chain_hash": on_chain_hash
     }
